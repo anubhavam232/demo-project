@@ -11,5 +11,5 @@ import java.util.List;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ResponseDTO {
-    private List<CartDTO> cartDTOList;
+    private CartDTO[] cartDTOList;
 }

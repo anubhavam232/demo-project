@@ -1,6 +1,7 @@
 package com.scaler.demo.project.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scaler.demo.project.dto.CartDTO;
 import com.scaler.demo.project.dto.ResponseDTO;
@@ -21,11 +22,12 @@ public class CartServiceImpl implements ICartService {
 
     //private RestTemplate restTemplate = new RestTemplate();
     @Override
-    public List<CartDTO> loadAllCarts() {
+    public List<CartDTO> loadAllCarts() throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         logger.info("Inside Service Impl call for load all carts");
-        ResponseEntity<List> response = restTemplate.getForEntity(GET_ALL_CART_URL , List.class);
+        String response = restTemplate.getForObject(GET_ALL_CART_URL , String.class);
+        List<CartDTO> carts = new ObjectMapper().readValue(response, new TypeReference<List<CartDTO>>() {});
 
-        return response.getBody();
+        return carts;
     }
 }

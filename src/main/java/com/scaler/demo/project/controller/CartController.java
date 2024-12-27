@@ -1,5 +1,6 @@
 package com.scaler.demo.project.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.scaler.demo.project.dto.CartDTO;
 import com.scaler.demo.project.service.ICartService;
 import org.slf4j.Logger;
@@ -20,7 +21,7 @@ public class CartController {
     private ICartService iCartService;
 
     @GetMapping
-    public List<CartDTO> getAllCarts(){
+    public List<CartDTO> getAllCarts() throws JsonProcessingException {
         logger.info("Inside Controller Class");
         return iCartService.loadAllCarts();
 
