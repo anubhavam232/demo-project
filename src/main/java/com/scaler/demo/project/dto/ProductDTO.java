@@ -1,19 +1,16 @@
 package com.scaler.demo.project.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.scaler.demo.project.model.Category;
+import lombok.*;
 
 import java.io.Serializable;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
-@Builder
+@Getter
+@Setter
 public class ProductDTO implements Serializable {
-    private int productId;
-    private int quantity;
+    private long id;
+    private String title;
+    private String description;
+    private long price;
+    private Category category;
 }
