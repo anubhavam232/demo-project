@@ -1,6 +1,7 @@
 package com.scaler.demo.project.service;
 
 
+import com.scaler.demo.project.dto.ProductDTO;
 import com.scaler.demo.project.model.Category;
 import com.scaler.demo.project.model.Product;
 import com.scaler.demo.project.repos.ProductRepository;
@@ -21,12 +22,13 @@ public class ProductServiceImpl implements ProductService{
         this.categoryService = categoryService;
     }
     @Override
-    public Product getProductById(Long id) {
+    public ProductDTO getProductById(Long id) {
         Optional<Product> product = productRepository.findById(id);
         if(product.isEmpty()){
             throw new EntityNotFoundException("Product Not Found");
         }
-        return product.get();
+
+        return convertToDTO(product.get());
     }
 
     @Override
@@ -41,5 +43,20 @@ public class ProductServiceImpl implements ProductService{
         Product savedProduct = productRepository.save(product);
 
         return savedProduct;
+    }
+
+    public ProductDTO convertToDTO(Product product) {
+        if (product == null) {
+            return null;
+        }
+
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(product.getId());
+        productDTO.setTitle(product.getTitle());
+        productDTO.setDescription(product.getDescription());
+        productDTO.setPrice((long) product.getPrice()); // Assuming you want to convert double to long
+        productDTO.setCategory(product.getCategory());
+
+        return productDTO;
     }
 }

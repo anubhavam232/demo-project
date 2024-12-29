@@ -1,10 +1,11 @@
 package com.scaler.demo.project.service;
 
 
+import com.scaler.demo.project.dto.ProductDTO;
 import com.scaler.demo.project.model.Product;
 
 public interface ProductService {
-    Product getProductById(Long id);
+    ProductDTO getProductById(Long id);
 
     Product createProduct(Product product);
 }

@@ -1,6 +1,7 @@
 package com.scaler.demo.project.controller;
 
 
+import com.scaler.demo.project.dto.ProductDTO;
 import com.scaler.demo.project.model.Product;
 import com.scaler.demo.project.service.ProductService;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable("id") Long id){
+    public ProductDTO getProductById(@PathVariable("id") Long id){
         return productService.getProductById(id);
     }
 
