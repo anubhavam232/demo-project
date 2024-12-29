@@ -4,6 +4,7 @@ import com.scaler.demo.project.model.Category;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -12,5 +13,5 @@ public class ProductDTO implements Serializable {
     private String title;
     private String description;
     private long price;
-    private Category category;
+    private CategoryDTO category;
 }

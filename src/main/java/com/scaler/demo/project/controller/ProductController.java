@@ -23,7 +23,7 @@ public class ProductController {
     }
 
     @PostMapping()
-    public Product createProduct(@RequestBody Product product, @RequestHeader String createdBy){
+    public ProductDTO createProduct(@RequestBody Product product, @RequestHeader String createdBy){
         product.setCreatedAt(LocalDateTime.now().toString());
         product.setCreatedBy(createdBy);
         return productService.createProduct(product);

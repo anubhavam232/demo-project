@@ -1,12 +1,15 @@
 package com.scaler.demo.project.service;
 
 
+import com.scaler.demo.project.dto.CategoryDTO;
 import com.scaler.demo.project.dto.ProductDTO;
 import com.scaler.demo.project.model.Category;
 import com.scaler.demo.project.model.Product;
 import com.scaler.demo.project.repos.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -32,7 +35,8 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product createProduct(Product product) {
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public ProductDTO createProduct(Product product) {
         Category category = product.getCategory();
         if(category.getId() == null){
             category.setCreatedAt(product.getCreatedAt());
@@ -42,7 +46,7 @@ public class ProductServiceImpl implements ProductService{
         }
         Product savedProduct = productRepository.save(product);
 
-        return savedProduct;
+        return convertToDTO(savedProduct);
     }
 
     public ProductDTO convertToDTO(Product product) {
@@ -55,7 +59,10 @@ public class ProductServiceImpl implements ProductService{
         productDTO.setTitle(product.getTitle());
         productDTO.setDescription(product.getDescription());
         productDTO.setPrice((long) product.getPrice()); // Assuming you want to convert double to long
-        productDTO.setCategory(product.getCategory());
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setId(product.getCategory().getId());
+        categoryDTO.setTitle(product.getCategory().getTitle());
+        productDTO.setCategory(categoryDTO);
 
         return productDTO;
     }

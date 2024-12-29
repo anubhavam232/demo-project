@@ -7,5 +7,5 @@ import com.scaler.demo.project.model.Product;
 public interface ProductService {
     ProductDTO getProductById(Long id);
 
-    Product createProduct(Product product);
+    ProductDTO createProduct(Product product);
 }
